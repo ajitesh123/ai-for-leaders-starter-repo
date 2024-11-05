@@ -1,3 +1,23 @@
+"""
+LLM Integration Module
+
+This module provides a unified interface for interacting with various Language Model providers
+(OpenAI, Anthropic, Google, and Groq). It includes implementations for text generation,
+streaming, and audio transcription capabilities.
+
+Key Features:
+- Unified interface through abstract LLM class
+- Support for multiple LLM providers
+- Text generation and streaming capabilities
+- Audio transcription (via Groq)
+- Integration with Helicone for request monitoring
+
+Usage Example:
+    llm = OpenAILLM(api_key="your-api-key")
+    response = llm.generate_text("Your prompt here", model="large")
+    print(response)
+"""
+
 # Related third-party imports
 import abc
 from concurrent.futures import ThreadPoolExecutor
@@ -23,6 +43,7 @@ ANTHROPIC_API_KEY = Config.APIKeys.ANTHROPIC
 GROQ_API_KEY = Config.APIKeys.GROQ
 HELIECONE_API_KEY = Config.Helicone.API_KEY
 
+# Model size mappings for each provider
 MODEL_MAPPING = {
     "openai": {
         "small": "gpt-3.5-turbo-0125",
@@ -47,15 +68,48 @@ MODEL_MAPPING = {
 }
 
 class LLM(abc.ABC):
+    """
+    Abstract base class for Language Model implementations.
+    
+    This class defines the interface that all LLM implementations must follow.
+    Implement this class to add support for new LLM providers.
+    """
     def __init__(self, api_key: Optional[str] = None):
+        """
+        Initialize the LLM instance.
+
+        Args:
+            api_key (Optional[str]): The API key for the LLM provider.
+                                   If None, will attempt to use environment variable.
+        """
         self.api_key = api_key
 
     @abc.abstractmethod
     def generate_text(self, prompt: str, **kwargs) -> str:
+        """
+            Generate text response for a given prompt.
+
+            Args:
+                prompt (str): The input prompt for text generation
+                **kwargs: Additional arguments for the specific LLM provider
+
+            Returns:
+                str: Generated text response
+        """
         pass
 
     @abc.abstractmethod
     def stream_text(self, prompt: str, **kwargs):
+        """
+        Stream text response for a given prompt.
+
+        Args:
+            prompt (str): The input prompt for text generation
+            **kwargs: Additional arguments for the specific LLM provider
+
+        Yields:
+            str: Chunks of generated text
+        """
         pass
 
 class OpenAILLM(LLM):
