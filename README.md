@@ -58,12 +58,14 @@ pip install -r requirements.txt
 ```
 
 4. Create a `.env` file with your API keys:
+   - Copy the provided `env_template.txt` file and rename it to `.env`
+   - Add your API keys to the corresponding fields
 
 ```bash
-#Create the .env file
-touch .env
+# Copy the template file
+cp env_template.txt .env
 
-#Add your API keys to the .env file
+# Edit the .env file and add your API keys
 OPENAI_API_KEY=your_openai_key
 ANTHROPIC_API_KEY=your_anthropic_key
 GROQ_API_KEY=your_groq_key

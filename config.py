@@ -5,6 +5,9 @@ from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
 
+# # Add __all__ to explicitly declare what should be exported
+# __all__ = ['Config']
+
 class Config:
     # API Keys
     class APIKeys:

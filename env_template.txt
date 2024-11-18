@@ -1,0 +1,13 @@
+# API Keys
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+GROQ_API_KEY=your_groq_key
+GOOGLE_API_KEY=your_google_key
+
+#HELIECONE 
+#account: for record keeping
+HELIECONE_API_KEY=your_helicone_key
+
+"""
+Add your API keys here. And change the name of the file to .env
+"""
